@@ -1,7 +1,6 @@
 import java.util.Observable;
-import java.util.Calendar;
 
-public class Time extends Observable implements Runnable{
+public class Time extends Observable{
 	
 	private int hour;
 	private int hour_of_day;
@@ -21,15 +20,17 @@ public class Time extends Observable implements Runnable{
 		tempSecond = 0;
 	}
 	
-	public void setTime() {
-		setTempMinute(getMinute());
-		setTempSecond(getSecond());
-		Calendar c = Calendar.getInstance();
-		setHourOfDay(c.get(Calendar.HOUR_OF_DAY));
-		setHour(c.get(Calendar.HOUR));
-		setMinute(c.get(Calendar.MINUTE));
-		setSecond(c.get(Calendar.SECOND));
-		setAmpm(c.get(Calendar.AM_PM));
+	public void setTime(int hourOfDay, int hour, int minute, int second, int ampm) {
+		setHourOfDay(hourOfDay);
+		setHour(hour);
+		setMinute(minute);
+		setSecond(second);
+		setAmpm(ampm);
+	}
+	
+	public void setTempTime(int tpMinute, int tpSecond) {
+		setTempMinute(tpMinute);
+		setTempSecond(tpSecond);
 	}
 	
 	public void setHour(int h) {
@@ -76,6 +77,20 @@ public class Time extends Observable implements Runnable{
 		return this.second;
 	}
 	
+	public void ENTimeObserver() {
+		if(second != tempSecond) {
+			this.setChanged();
+			this.notifyObservers("en");
+		}
+	}
+	
+	public void FRTimeObserver() {
+		if(minute != tempMinute) {
+			this.setChanged();
+			this.notifyObservers("fr");
+		}
+	}
+	
 	public void displayFRTime() {
 		System.out.println(getHourOfDay()+"h"+getMinute());
 	}
@@ -89,20 +104,5 @@ public class Time extends Observable implements Runnable{
 			System.out.println("0"+second+"s");
 		else 
 			System.out.println(second+"s");
-	}
-
-	@Override
-	public void run() {
-		while(true) {
-			setTime();
-			if(second != tempSecond) {
-				this.setChanged();
-				this.notifyObservers("en");
-			}
-			if(minute != tempMinute) {
-				this.setChanged();
-				this.notifyObservers("fr");
-			}
-		}
 	}
 }
