@@ -3,14 +3,16 @@ public class TestTimeObserver {
 
 	public static void main(String[] args) {
 		
-		Time time = new Time();
+		ENTime enTime = new ENTime();
+		FRTime frTime = new FRTime();
 		
-		FRTimeObserver frTimeObserver = new FRTimeObserver();
-		ENTimeObserver enTimeObserver = new ENTimeObserver();
+		ENTimeObserver enObserver = new ENTimeObserver();
+		FRTimeObserver frObserver = new FRTimeObserver();
 		
-		time.addObserver(frTimeObserver);
-		time.addObserver(enTimeObserver);
+		enTime.addObserver(enObserver);
+		frTime.addObserver(frObserver);
 		
-		new Thread(time).start();
+		new Thread(enTime).start();
+		new Thread(frTime).start();
 	}
 }
