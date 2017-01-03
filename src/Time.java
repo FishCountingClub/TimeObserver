@@ -25,7 +25,7 @@ public class Time extends Observable{
 		setHour(hour);
 		setMinute(minute);
 		setSecond(second);
-		setAmpm(ampm);
+		setAmpm(ampm); 
 	}
 	
 	public void setTempTime(int tpMinute, int tpSecond) {
